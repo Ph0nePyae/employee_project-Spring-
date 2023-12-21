@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace= "com.employee_mybatis.employee_mybatis.repository.EmployeeRepository">
+ 	
+ 	<resultMap type="EmployeeModel" id="EmpResultMap">  
+		<id column="emp_id" property="empId" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_age" property="empAge" />
+		<result column="emp_salary" property="empSalary" />
+	</resultMap>
+ 
+ 	<select id="empAllData" resultMap="EmpResultMap">
+ 		SELECT emp_id, emp_name, emp_age, emp_salary FROM employee ORDER BY emp_id ASC;
+	</select>
+	<insert id="empDataAdd" parameterType="EmployeeModel">
+		INSERT INTO employee (emp_name, emp_age, emp_salary) VALUES (#{empName}, #{empAge}, #{empSalary});
+	</insert>
+	<delete id="empDataDelete" parameterType="int">
+		DELETE FROM employee WHERE emp_id=#{empId};
+	</delete>
+	<select id="selectById" resultMap="EmpResultMap" parameterType="int">
+ 		SELECT emp_id, emp_name, emp_age, emp_salary FROM employee WHERE emp_id=#{empId};
+	</select>
+	<update id="empDataUpdate" parameterType="EmployeeModel">
+		UPDATE employee SET emp_name=#{empName}, emp_age=#{empAge}, emp_salary=#{empSalary} WHERE emp_id=#{empId};
+	</update>
+ </mapper>
